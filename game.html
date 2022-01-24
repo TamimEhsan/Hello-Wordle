@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <!-- My Css -->
+    <link href="style.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" rel="stylesheet">
+
+    <!--    ajax-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <title>Hello, world!</title>
+</head>
+<body>
+
+
+<div class="" style="width: 800px;background-color: wheat; margin: auto">
+    <div class="row">
+        <div class="col-7 p-3" style="background-color: #f8f9fa">
+            <div class="shadow p-2 m-2">
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" id="inputString" maxlength="5"
+                              placeholder="Leave a comment here"></textarea>
+                    <label for="inputString">Input String</label>
+                </div>
+                <div class="form-floating">
+                    <textarea class="form-control" id="verdict" maxlength="5"
+                              placeholder="Leave a comment here"></textarea>
+                    <label for="verdict">Verdict</label>
+                </div>
+                <div class="d-grid gap-2 m-2">
+                    <button class="btn btn-outline-warning" onclick="getNext()">Get Next Suggestions</button>
+                </div>
+
+            </div>
+            <div class="game-area">
+                <!--                <div id="trial0" >-->
+                <!--                    <form class="border p-1">-->
+                <!--                        <input disabled maxlength="1" type="text"/>-->
+                <!--                        <input disabled maxlength="1" type="text"/>-->
+                <!--                        <input disabled maxlength="1" type="text"/>-->
+                <!--                        <input disabled maxlength="1" type="text"/>-->
+                <!--                        <input disabled maxlength="1" type="text"/>-->
+                <!--                    </form>-->
+                <!--                </div>-->
+
+            </div>
+        </div>
+        <div class="col-5" style="background-color: #5aab69" >
+            <div class="words shadow m-2 p-2 bg-light" style="text-align: center">
+                <h3>Suggested Words</h3>
+            </div>
+            <div id="wordlist" style="height: 500px" class=" p-2 overflow-auto"></div>
+        </div>
+    </div>
+
+
+</div>
+
+<script src="script.js"></script>
+<script src="words.js"></script>
+<script src="sort.js"></script>
+
+<script>
+    function insertWords(){
+        const wordListDiv = document.querySelector('#wordlist');
+        let sz = wordListDiv.childNodes.length;
+        wordListDiv.childNodes = [];
+
+        while (wordListDiv.firstChild) {
+            wordListDiv.removeChild(wordListDiv.firstChild);
+        }
+
+        for(let i=0;i<trimmedWords.length;i++){
+            let child = document.createElement('div');
+
+            child.classList.add('wordsdiv');
+            //child.classList.add('shadow');
+            child.classList.add('border-bottom');
+
+            child.textContent = trimmedWords[i].toUpperCase();
+            wordListDiv.appendChild(child);
+        }
+    }
+    insertWords();
+    function getNext(){
+        //const inputs = document.querySelectorAll(`#trial${trial} input`);
+        // console.log(inputs);
+
+        let inputString = document.getElementById('inputString').value;
+        let verdict = document.getElementById('verdict').value;
+        verdict = verdict.toUpperCase();
+        if( inputString.length!=5 || verdict.length!=5 )return;
+
+        let classes = [];
+        for(let i=0;i<5;i++){
+            if( verdict[i] === 'G'  ){
+                classes.push('success');
+            }else if( verdict[i] == 'Y' ){
+                classes.push('warning');
+            }else if( verdict[i] == 'B' ){
+                classes.push('wrong');
+            }else{
+                return;
+            }
+        }
+        inputString = inputString.toLowerCase();
+        sorts(inputString,verdict);
+        inputString = inputString.toUpperCase();
+        let form = document.createElement('form');
+        for(let i=0;i<5;i++){
+            let input = document.createElement('input');
+            input.disabled = true;
+            input.type = 'text';
+            input.value = inputString[i];
+            input.classList.add(classes[i]);
+            form.appendChild(input);
+        }
+        form.classList.add('border');
+        form.classList.add('p-1');
+        let trial = document.createElement('div');
+        trial.appendChild(form);
+        document.querySelector('.game-area').appendChild(trial);
+        // <div id="trial0">
+        //     <form className="border p-1">
+        document.getElementById('inputString').value = "";
+        document.getElementById('verdict').value = "";
+        console.log('henloo');
+        insertWords();
+        console.log('henloo2');
+    }
+
+</script>
+
+
+
+
+<!-- Optional JavaScript; choose one of the two! -->
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script crossorigin="anonymous"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<!--
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+-->
+</body>
+</html>

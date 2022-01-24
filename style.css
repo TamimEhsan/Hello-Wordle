@@ -1,0 +1,37 @@
+.wordsdiv {
+    color: white;
+    font-size: 26px;
+    font-weight: 600;
+    font-family: sans-serif;
+
+    text-align: center;
+}
+
+
+input[type=text] {
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    border: 0;
+    font-size: 36px;
+    font-weight: 600;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.wrong{
+    background-color: #787c7e;
+    color: #f8f9fa;
+}
+.success{
+    width: 50px;
+    height: 50px;
+    background-color: #5aab69;
+    color: #f8f9fa;
+}
+
+.warning{
+    background-color: #cab662;
+    color: #f8f9fa;
+}
+
