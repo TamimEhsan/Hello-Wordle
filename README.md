@@ -1,4 +1,9 @@
-<img src="public/images/banner.jpg"> <br/>
+<img src="public/images/banner.jpg">
+
+
+
+[Go To Site](https://tamimehsan.github.io/WORDLE-HELPER/)
+
 <h1>Welcome fellow travellers!</h1>
     <h4>Guess the WORDLE in 6 tries. Each guess must be a valid 5 letter word. Hit the enter button to submit. After each guess, the color of the tiles will change to show how close your guess was to the word.</h4>
     <hr>
